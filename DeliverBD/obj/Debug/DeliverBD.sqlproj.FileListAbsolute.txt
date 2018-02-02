@@ -1,0 +1,9 @@
+C:\Codigo\Deliver\DeliverBD\bin\Debug\DeliverBD.dacpac
+C:\Codigo\Deliver\DeliverBD\obj\Debug\Model.xml
+C:\Codigo\Deliver\DeliverBD\obj\Debug\refactor.xml
+C:\Codigo\Deliver\DeliverBD\obj\Debug\postdeploy.sql
+C:\Codigo\Deliver\DeliverBD\obj\Debug\predeploy.sql
+C:\Codigo\Deliver\DeliverBD\obj\Debug\DeliverBD.dll
+C:\Codigo\Deliver\DeliverBD\obj\Debug\DeliverBD.pdb
+C:\Codigo\Deliver\DeliverBD\bin\Debug\DeliverBD.dll
+C:\Codigo\Deliver\DeliverBD\bin\Debug\DeliverBD.pdb

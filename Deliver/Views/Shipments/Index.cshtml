@@ -1,0 +1,102 @@
+﻿@model IEnumerable<Deliver.Models.Shipment>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Ordered
+            @*@Html.DisplayNameFor(model => model.orderedDate)*@
+        </th>
+        <th>
+            Shipeded
+            @*@Html.DisplayNameFor(model => model.shipedDate)*@
+        </th>
+        <th>
+            Delivered
+            @*@Html.DisplayNameFor(model => model.deliveredDate)*@
+        </th>
+        <th>
+            Traking Id
+            @*@Html.DisplayNameFor(model => model.trackingNumber)*@
+        </th>
+        <th>
+            Origin
+            @*@Html.DisplayNameFor(model => model.originAddress)*@
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.originPoint)
+        </th>*@
+        <th>
+            Destination
+            @*@Html.DisplayNameFor(model => model.destinationAddress)*@
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.destinationPoint)
+        </th>*@
+        <th>
+            Deliver State
+            @*@Html.DisplayNameFor(model => model.lastPointReported)*@
+        </th>
+        <th>
+            Estimate Deliver
+            @*@Html.DisplayNameFor(model => model.estimatedDeliverDate)*@
+        </th>
+        <th>
+            Vendor
+            @*@Html.DisplayNameFor(model => model.Vendor.vendorName)*@
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.orderedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.shipedDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.deliveredDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.trackingNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.originAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.originPoint)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.destinationAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.destinationPoint)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lastPointReported)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.estimatedDeliverDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Vendor.vendorName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+        </td>
+    </tr>
+}
+
+</table>

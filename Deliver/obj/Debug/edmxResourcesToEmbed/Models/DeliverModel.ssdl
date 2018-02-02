@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DeliverModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Shipments">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="orderedDate" Type="date" Nullable="false" />
+    <Property Name="shipedDate" Type="date" Nullable="false" />
+    <Property Name="deliveredDate" Type="date" Nullable="false" />
+    <Property Name="trackingNumber" Type="varchar" MaxLength="50" />
+    <Property Name="originAddress" Type="varchar" MaxLength="150" />
+    <Property Name="originPoint" Type="geography" />
+    <Property Name="destinationAddress" Type="varchar" MaxLength="150" />
+    <Property Name="destinationPoint" Type="geography" />
+    <Property Name="vendorId" Type="int" />
+    <Property Name="lastPointReported" Type="geography" />
+    <Property Name="estimatedDeliverDate" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Vendors">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="vendorName" Type="varchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Shipments_Vendors">
+    <End Role="Vendors" Type="Self.Vendors" Multiplicity="0..1" />
+    <End Role="Shipments" Type="Self.Shipments" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vendors">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Shipments">
+        <PropertyRef Name="vendorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DeliverModelStoreContainer">
+    <EntitySet Name="Shipments" EntityType="Self.Shipments" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Vendors" EntityType="Self.Vendors" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Shipments_Vendors" Association="Self.FK_Shipments_Vendors">
+      <End Role="Vendors" EntitySet="Vendors" />
+      <End Role="Shipments" EntitySet="Shipments" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

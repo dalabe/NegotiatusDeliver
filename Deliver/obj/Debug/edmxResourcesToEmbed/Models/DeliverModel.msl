@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DeliverModelStoreContainer" CdmEntityContainer="DeliverEntities">
+    <EntitySetMapping Name="Shipments">
+      <EntityTypeMapping TypeName="DeliverModel.Shipment">
+        <MappingFragment StoreEntitySet="Shipments">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="orderedDate" ColumnName="orderedDate" />
+          <ScalarProperty Name="shipedDate" ColumnName="shipedDate" />
+          <ScalarProperty Name="deliveredDate" ColumnName="deliveredDate" />
+          <ScalarProperty Name="trackingNumber" ColumnName="trackingNumber" />
+          <ScalarProperty Name="originAddress" ColumnName="originAddress" />
+          <ScalarProperty Name="originPoint" ColumnName="originPoint" />
+          <ScalarProperty Name="destinationAddress" ColumnName="destinationAddress" />
+          <ScalarProperty Name="destinationPoint" ColumnName="destinationPoint" />
+          <ScalarProperty Name="vendorId" ColumnName="vendorId" />
+          <ScalarProperty Name="lastPointReported" ColumnName="lastPointReported" />
+          <ScalarProperty Name="estimatedDeliverDate" ColumnName="estimatedDeliverDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Vendors">
+      <EntityTypeMapping TypeName="DeliverModel.Vendor">
+        <MappingFragment StoreEntitySet="Vendors">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="vendorName" ColumnName="vendorName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

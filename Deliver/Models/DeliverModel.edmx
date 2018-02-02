@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DeliverModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Shipments">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="orderedDate" Type="date" Nullable="false" />
+          <Property Name="shipedDate" Type="date" Nullable="false" />
+          <Property Name="deliveredDate" Type="date" Nullable="false" />
+          <Property Name="trackingNumber" Type="varchar" MaxLength="50" />
+          <Property Name="originAddress" Type="varchar" MaxLength="150" />
+          <Property Name="originPoint" Type="geography" />
+          <Property Name="destinationAddress" Type="varchar" MaxLength="150" />
+          <Property Name="destinationPoint" Type="geography" />
+          <Property Name="vendorId" Type="int" />
+          <Property Name="lastPointReported" Type="geography" />
+          <Property Name="estimatedDeliverDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Vendors">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="vendorName" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Shipments_Vendors">
+          <End Role="Vendors" Type="Self.Vendors" Multiplicity="0..1" />
+          <End Role="Shipments" Type="Self.Shipments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendors">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Shipments">
+              <PropertyRef Name="vendorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DeliverModelStoreContainer">
+          <EntitySet Name="Shipments" EntityType="Self.Shipments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Vendors" EntityType="Self.Vendors" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Shipments_Vendors" Association="Self.FK_Shipments_Vendors">
+            <End Role="Vendors" EntitySet="Vendors" />
+            <End Role="Shipments" EntitySet="Shipments" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DeliverModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Shipment">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="orderedDate" Type="DateTime" Precision="0" Nullable="false" />
+          <Property Name="shipedDate" Type="DateTime" Precision="0" Nullable="false" />
+          <Property Name="deliveredDate" Type="DateTime" Precision="0" Nullable="false" />
+          <Property Name="trackingNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="originAddress" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="originPoint" Type="Geography" />
+          <Property Name="destinationAddress" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="destinationPoint" Type="Geography" />
+          <Property Name="vendorId" Type="Int32" />
+          <Property Name="lastPointReported" Type="Geography" />
+          <Property Name="estimatedDeliverDate" Type="DateTime" Precision="0" Nullable="false" />
+          <NavigationProperty Name="Vendor" Relationship="Self.FK_Shipments_Vendors" FromRole="Shipments" ToRole="Vendors" />
+        </EntityType>
+        <EntityType Name="Vendor">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="vendorName" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Shipments" Relationship="Self.FK_Shipments_Vendors" FromRole="Vendors" ToRole="Shipments" />
+        </EntityType>
+        <Association Name="FK_Shipments_Vendors">
+          <End Role="Vendors" Type="Self.Vendor" Multiplicity="0..1" />
+          <End Role="Shipments" Type="Self.Shipment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendors">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Shipments">
+              <PropertyRef Name="vendorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DeliverEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Shipments" EntityType="Self.Shipment" />
+          <EntitySet Name="Vendors" EntityType="Self.Vendor" />
+          <AssociationSet Name="FK_Shipments_Vendors" Association="Self.FK_Shipments_Vendors">
+            <End Role="Vendors" EntitySet="Vendors" />
+            <End Role="Shipments" EntitySet="Shipments" />
+          </AssociationSet>
+          </EntityContainer>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DeliverModelStoreContainer" CdmEntityContainer="DeliverEntities">
+          <EntitySetMapping Name="Shipments">
+            <EntityTypeMapping TypeName="DeliverModel.Shipment">
+              <MappingFragment StoreEntitySet="Shipments">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="orderedDate" ColumnName="orderedDate" />
+                <ScalarProperty Name="shipedDate" ColumnName="shipedDate" />
+                <ScalarProperty Name="deliveredDate" ColumnName="deliveredDate" />
+                <ScalarProperty Name="trackingNumber" ColumnName="trackingNumber" />
+                <ScalarProperty Name="originAddress" ColumnName="originAddress" />
+                <ScalarProperty Name="originPoint" ColumnName="originPoint" />
+                <ScalarProperty Name="destinationAddress" ColumnName="destinationAddress" />
+                <ScalarProperty Name="destinationPoint" ColumnName="destinationPoint" />
+                <ScalarProperty Name="vendorId" ColumnName="vendorId" />
+                <ScalarProperty Name="lastPointReported" ColumnName="lastPointReported" />
+                <ScalarProperty Name="estimatedDeliverDate" ColumnName="estimatedDeliverDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Vendors">
+            <EntityTypeMapping TypeName="DeliverModel.Vendor">
+              <MappingFragment StoreEntitySet="Vendors">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="vendorName" ColumnName="vendorName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
